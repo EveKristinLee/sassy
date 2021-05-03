@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#FFFFFF"
     android:orientation="vertical">
 
@@ -20,7 +20,7 @@
         />
 
     <EditText
-        android:id="@+id/productNameEditText"
+        android:id="@+id/productName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -28,12 +28,21 @@
         android:inputType="text" />
 
     <EditText
-        android:id="@+id/priceEditText"
+        android:id="@+id/productCost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="금액"
         android:inputType="text" />
+
+    <EditText
+        android:id="@+id/productQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:hint="수량"
+        />
 
     <Spinner
         android:id="@+id/categorySpinner"
