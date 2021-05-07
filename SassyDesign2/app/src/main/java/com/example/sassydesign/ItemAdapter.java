@@ -1,8 +1,15 @@
 package com.example.sassydesign;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,8 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import lib.kingja.switchbutton.SwitchMultiButton;
+
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
-    ArrayList<Item> items = new ArrayList<Item>();
+    static ArrayList<Item> items = new ArrayList<Item>();
+
 
     @NonNull
     @Override
@@ -54,7 +64,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         items.set(position, item);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
 
         TextView itemTitle;
         TextView itemCacheOrCard;
@@ -72,7 +82,72 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             itemCategory = itemView.findViewById(R.id.itemCategory);
             itemPrice = itemView.findViewById(R.id.itemPrice);
             itemQuantity = itemView.findViewById(R.id.itemQuantity);
+            
+            //리스너 구현
+            itemView.setOnCreateContextMenuListener(this);
         }
+
+
+        //꾹 누르면 수정, 삭제 메뉴 생성
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            MenuItem Edit = menu.add(Menu.NONE, 1001, 1, "수정");
+            MenuItem Delete = menu.add(Menu.NONE, 1002, 2, "삭제");
+
+            Edit.setOnMenuItemClickListener(onEditMenu);
+            Delete.setOnMenuItemClickListener(onEditMenu);
+        }
+
+        private final MenuItem.OnMenuItemClickListener onEditMenu = new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case 1001: //수정
+                        AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+
+                        // 수정 화면 넘어가기
+                        /*
+                        View view = LayoutInflater.from(itemView.getContext()).inflate(R.layout.hand_add, null, false);
+                        builder.setView(view);
+
+                        final SwitchMultiButton switchInOutButton = (SwitchMultiButton) view.findViewById(R.id.switchInOutButton);
+                        final SwitchMultiButton switchCCButton = (SwitchMultiButton) view.findViewById(R.id.switchCCButton);
+                        final Button dateButton = (Button) view.findViewById(R.id.dateButton);
+                        final EditText itemDetailTitle = (EditText) view.findViewById(R.id.itemDetailTitle);
+
+                        final EditText productName = (EditText) view.findViewById(R.id.productName);
+                        final EditText productCost = (EditText) view.findViewById(R.id.productCost);
+                        final EditText productQuantity = (EditText) view.findViewById(R.id.productQuantity);
+
+                        switchInOutButton.setSelectedTab(items.get(getAdapterPosition()).get)
+
+                        for(int i=0; i<items.size(); i++) {
+                            productName.setText(items.get(getAdapterPosition()).get);
+
+                        }
+                         */
+
+
+                        final AlertDialog dialog = builder.create();
+
+                        //수정 버튼을 누르면 현재 UI에 입력되어있는 내용으로
+
+                        dialog.show();
+                        break;
+
+                    case 1002://삭제
+                        items.remove(getAdapterPosition());
+                        notifyItemRemoved(getAdapterPosition());
+                        notifyItemRangeChanged(getAdapterPosition(), items.size());
+
+                        break;
+
+                }
+                return true;
+            }
+        };
+
+
 
         public void setItem(Item item){
 

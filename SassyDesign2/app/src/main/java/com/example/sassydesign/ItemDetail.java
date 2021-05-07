@@ -1,19 +1,29 @@
 package com.example.sassydesign;
 
+import android.widget.Spinner;
+
 public class ItemDetail {
     String productName;
     String productCost;
-    String productCategory;
     String productQuantity;
+    String productCategory;
+    Spinner category;
+    int position;
 
 
-    public ItemDetail(String productName, String productCost, String quantity, String productCategory) {
+
+
+
+    public ItemDetail(String productName, String productCost, String quantity, Spinner category) {
         this.productName = productName;
         this.productCost = productCost;
         this.productQuantity = quantity;
-        this.productCategory = productCategory;
-
+        this.category = category;
     }
+
+//    public void setSpinner(Spinner category) {
+//        this.category = category;
+//    }
 
     public String getProductQuantity() {
         return productQuantity;
@@ -47,4 +57,26 @@ public class ItemDetail {
     public void setProductCategory(String productCategory) {
         this.productCategory = productCategory;
     }
+
+    public Spinner getCategory() {
+        return category;
+    }
+
+    public void setCategory(Spinner category) {
+        this.category = category;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+
+//    public void setSelectedCategory(int position){
+//        this.category.setSelection(position);
+//
+//    }
 }
